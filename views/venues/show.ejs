@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="columns">
+    <div class="column">
+      <figure class="image">
+        <img src="<%= venue.image %>" alt="<%= venue.name %>">
+      </figure>
+    </div>
+    <div class="column">
+      <h1 class="title"><%= venue.name %></h1>
+      <h2 class="subtitle"><%= venue.postCode %></h2>
+      <p><%= venue.openingHours %></p>
+      <table>
+        <tr>
+          <td></td>
+          <td>Open</td>
+          <td>Close</td>
+        </tr>
+        <% const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']; %>
+        <% days.forEach(day => { %>
+          <tr>
+            <td><%- day.charAt(0).toUpperCase() + day.slice(1); %></td>
+            <td><%= venue.openingHours[0].monday[0] %></td>
+            <td><%= venue.openingHours[0].monday[1] %></td>
+          </tr>
+        <% }) %>
+      </table>
+      <p><%- venue.description %></p>
+    </div>
+  </div>
+
+  <%# // function to make map appear %>
+  openingHours: {
+    seasons: 'yearly',
+    monday: ['12:00PM', '12:00AM'],
+    tuesday: ['12:00PM', '12:00AM'],
+    wednesday: ['12:00PM', '12:00AM'],
+    thursday: ['12:00PM', '12:00AM'],
+    friday: ['12:00PM', '01:00AM'],
+    saturday: ['12:00PM', '01:00AM'],
+    sunday: ['12:00PM', '11:30PM']
+  },
+
+</div>

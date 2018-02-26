@@ -1,0 +1,204 @@
+<div class="container">
+  <br/>
+  <h1 class="title">Add a venue</h1>
+  <form action="/venues" method="POST">
+    <div class="field">
+      <label class="label">Name
+        <div class="control">
+          <input class="input" type="text" name="name" placeholder="Name" required>
+        </div>
+      </label>
+    </div>
+    <div class="field">
+      <label class="label" for="autocomplete">Location</label>
+        <div class="control">
+          <div id="locationField">
+            <input type="hidden" name="map[lat]"/>
+            <input type="hidden" name="map[lng]"/>
+            <input id="autocomplete" class="input" placeholder="Enter your address" type="text" />
+          </div>
+        </div>
+        <div class="control">
+          <input class="input" type="text" name="addressLine1" placeholder="Address Line 1" required>
+        </div>
+        <div class="control">
+          <input class="input" type="text" name="addressLine2" placeholder="Address Line 2">
+        </div>
+        <div class="control">
+          <input class="input" type="text" name="city" placeholder="City" required>
+        </div>
+        <div class="control">
+          <input class="input" type="text" name="postCode" placeholder="Post Code" required>
+        </div>
+    </div>
+    <div class="field">
+      <label class="label" for="phone">Phone
+        <div class="control">
+          <input id="phone" class="input" type="text" name="phone" placeholder="Phone">
+        </div>
+      </label>
+    </div>
+    <div class="field">
+      <label class="label" for="yearly">Opening Hours</label>
+        <div class="control">
+          <input id="yearly" type="checkbox" name="openingHours[seasons]" value="yearly">
+          <label for="yearly">Yearly&nbsp;</label>
+          <input id="spring" type="checkbox" name="openingHours[seasons]" value="spring">
+          <label for="spring">Spring&nbsp;</label>
+          <input id="summer" type="checkbox" name="openingHours[seasons]" value="summer">
+          <label for="summer">Summer&nbsp;</label>
+          <input id="autumn" type="checkbox" name="openingHours[seasons]" value="autumn">
+          <label for="autumn">Autumn&nbsp;</label>
+          <input id="winter" type="checkbox" name="openingHours[seasons]" value="winter">
+          <label for="winter">Winter&nbsp;</label>
+        </div>
+        <br>
+        <div class="control">
+          <table>
+            <tr>
+              <td></td>
+              <td>Open</td>
+              <td>Close</td>
+            </tr>
+            <% const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            days.forEach(day => { %>
+              <tr>
+                <td><label for=<%= day %>><%- day.charAt(0).toUpperCase() + day.slice(1); %>&nbsp; &nbsp; &nbsp;</label></td>
+                <td><select id=<%= day %> class="input" name="openingHours[<%= day %>][0]">
+                  <option value="closed">CLOSED</option>
+                  <option value="07:00AM">07:00AM</option>
+                  <option value="07:30AM">07:30AM</option>
+                  <option value="08:00AM">08:00AM</option>
+                  <option value="08:30AM">08:30AM</option>
+                  <option value="09:00AM">09:00AM</option>
+                  <option value="09:30AM">09:30AM</option>
+                  <option value="10:00AM">10:00AM</option>
+                  <option value="10:30AM">10:30AM</option>
+                  <option value="11:00AM">11:00AM</option>
+                  <option value="11:30AM">11:30AM</option>
+                  <option value="12:00PM">12:00PM</option>
+                  <option value="12:30PM">12:30PM</option>
+                  <option value="01:00PM">01:00PM</option>
+                  <option value="01:30PM">01:30PM</option>
+                  <option value="02:00PM">02:00PM</option>
+                  <option value="02:30PM">02:30PM</option>
+                  <option value="03:00PM">03:00PM</option>
+                  <option value="03:30PM">03:30PM</option>
+                  <option value="04:00PM">04:00PM</option>
+                  <option value="04:30PM">04:30PM</option>
+                  <option value="05:00PM">05:00PM</option>
+                  <option value="05:30PM">05:30PM</option>
+                  <option value="06:00PM">06:00PM</option>
+                  <option value="06:30PM">06:30PM</option>
+                  <option value="07:00PM">07:00PM</option>
+                  <option value="07:30PM">07:30PM</option>
+                  <option value="08:00PM">08:00PM</option>
+                  <option value="08:30PM">08:30PM</option>
+                  <option value="09:00PM">09:00PM</option>
+                  <option value="09:30PM">09:30PM</option>
+                  <option value="10:00PM">10:00PM</option>
+                  <option value="10:30PM">10:30PM</option>
+                  <option value="11:00PM">11:00PM</option>
+                  <option value="11:30PM">11:30PM</option>
+                  <option value="12:00AM">12:00AM</option>
+                  <option value="12:30AM">12:30AM</option>
+                  <option value="01:00AM">01:00AM</option>
+                  <option value="01:30AM">01:30AM</option>
+                  <option value="02:00AM">02:00AM</option>
+                  <option value="02:30AM">02:30AM</option>
+                  <option value="03:00AM">03:00AM</option>
+                </select></td>
+                <td><select id=<%= day %> class="input" name="openingHours[<%= day %>][1]">
+                  <option value="closed">CLOSED</option>
+                  <option value="07:00AM">07:00AM</option>
+                  <option value="07:30AM">07:30AM</option>
+                  <option value="08:00AM">08:00AM</option>
+                  <option value="08:30AM">08:30AM</option>
+                  <option value="09:00AM">09:00AM</option>
+                  <option value="09:30AM">09:30AM</option>
+                  <option value="10:00AM">10:00AM</option>
+                  <option value="10:30AM">10:30AM</option>
+                  <option value="11:00AM">11:00AM</option>
+                  <option value="11:30AM">11:30AM</option>
+                  <option value="12:00PM">12:00PM</option>
+                  <option value="12:30PM">12:30PM</option>
+                  <option value="01:00PM">01:00PM</option>
+                  <option value="01:30PM">01:30PM</option>
+                  <option value="02:00PM">02:00PM</option>
+                  <option value="02:30PM">02:30PM</option>
+                  <option value="03:00PM">03:00PM</option>
+                  <option value="03:30PM">03:30PM</option>
+                  <option value="04:00PM">04:00PM</option>
+                  <option value="04:30PM">04:30PM</option>
+                  <option value="05:00PM">05:00PM</option>
+                  <option value="05:30PM">05:30PM</option>
+                  <option value="06:00PM">06:00PM</option>
+                  <option value="06:30PM">06:30PM</option>
+                  <option value="07:00PM">07:00PM</option>
+                  <option value="07:30PM">07:30PM</option>
+                  <option value="08:00PM">08:00PM</option>
+                  <option value="08:30PM">08:30PM</option>
+                  <option value="09:00PM">09:00PM</option>
+                  <option value="09:30PM">09:30PM</option>
+                  <option value="10:00PM">10:00PM</option>
+                  <option value="10:30PM">10:30PM</option>
+                  <option value="11:00PM">11:00PM</option>
+                  <option value="11:30PM">11:30PM</option>
+                  <option value="12:00AM">12:00AM</option>
+                  <option value="12:30AM">12:30AM</option>
+                  <option value="01:00AM">01:00AM</option>
+                  <option value="01:30AM">01:30AM</option>
+                  <option value="02:00AM">02:00AM</option>
+                  <option value="02:30AM">02:30AM</option>
+                  <option value="03:00AM">03:00AM</option>
+                </select></td>
+              </tr>
+            <% }) %>
+          </table>
+        </div>
+    </div>
+    <div class="field">
+      <label for="category" class="label radio">Category</label>
+      <div class="control">
+        <input id="pub" type="radio" name="category" value="pub">
+        <label for="pub">Pub&nbsp;</label>
+        <input id="cafe" type="radio" name="category" value="cafe">
+        <label for="cafe">Cafe&nbsp;</label>
+        <input id="restaurant" type="radio" name="category" value="restaurant">
+        <label for="restaurant">Restaurant&nbsp;</label>
+        <input id="bar" type="radio" name="category" value="bar">
+        <label for="bar">Bar&nbsp;</label>
+        <input id="gastropub" type="radio" name="category" value="gastropub">
+        <label for="gastropub">Gastropub&nbsp;</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="description">Description</label>
+      <div class="control">
+        <textarea id="description" name="description" class="textarea" placeholder="A little something about this venue.."></textarea>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="photo">Photo</label>
+      <div class="control">
+        <input id="photo" class="input" type="text" name="image" placeholder="Paste an image link.." required>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="website">Website link</label>
+      <div class="control">
+        <input id="website" class="input" type="text" name="website" placeholder="Paste a link to the venue's website.." required>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <button class="button is-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+  <br/>
+  <br/>
+  <br/>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8-ZXlENPsahFvTjBgbrvg1CuYhipGVic&libraries=places&callback=initAutocomplete" async defer></script>
