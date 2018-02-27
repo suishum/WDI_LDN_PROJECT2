@@ -1,6 +1,7 @@
 // ==============================
 // Google Autocomplete Form Stuff
 // ==============================
+/* global google */
 let placeSearch = null;
 let autocomplete = null;
 let geocoder = null;
@@ -32,18 +33,35 @@ function fillInAddress() {
   console.log(place);
   const lat = document.querySelector('[name="map[lat]"]');
   const lng = document.querySelector('[name="map[lng]"]');
-  const addressLine1 = document.querySelector('[name=addressLine1]');
-  // const addressLine2 = document.querySelector('[name=addressLine2]');
-  const city = document.querySelector('[name=city]');
   const postCode = document.querySelector('[name=postCode]');
   const location = place.geometry.location.toJSON();
   lat.value = location.lat;
   lng.value = location.lng;
-  addressLine1.value = `${place['address_components'][1]['short_name']} ${place['address_components'][2]['short_name']}`;
-  city.value = `${place['address_components'][3]['short_name']} ${place['address_components'][6]['long_name']}`;
   postCode.value = `${place['address_components'][place['address_components'].length-1]['short_name']}`;
+  console.log(postCode);
   console.log(location.lat);
   console.log(location.lng);
   codeAddress(document.getElementById('autocomplete').value);
 }
-// ===========================================
+// ================
+// Actual Map Stuff
+// ================
+function initMap() {
+  // set attributes as 'data-whatever' to access in javascript by document.getElement().dataset.whatever
+  // here we've used JSON.stringify to turn the object into a string (which we will then JSON.parse in JavaScript)
+  const venue = JSON.parse(document.getElementById('map').dataset.location);
+  const map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 17,
+    center: venue
+  });
+  new google.maps.Marker({
+    position: venue,
+    map: map
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('map')) initMap();
+  if (document.getElementById('autocomplete')) initAutocomplete();
+  // initAutocomplete();
+});

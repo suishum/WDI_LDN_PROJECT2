@@ -5,7 +5,7 @@
     <div class="field">
       <label class="label">Name
         <div class="control">
-          <input class="input" type="text" name="name" placeholder="Name" required>
+          <input class="input" type="text" name="name" placeholder="Name" required />
         </div>
       </label>
     </div>
@@ -15,20 +15,9 @@
           <div id="locationField">
             <input type="hidden" name="map[lat]"/>
             <input type="hidden" name="map[lng]"/>
-            <input id="autocomplete" class="input" placeholder="Enter your address" type="text" />
+            <input type="hidden" name="postCode"/>
+            <input id="autocomplete" name="location" class="input" placeholder="Enter the venue address" type="text" required />
           </div>
-        </div>
-        <div class="control">
-          <input class="input" type="text" name="addressLine1" placeholder="Address Line 1" required>
-        </div>
-        <div class="control">
-          <input class="input" type="text" name="addressLine2" placeholder="Address Line 2">
-        </div>
-        <div class="control">
-          <input class="input" type="text" name="city" placeholder="City" required>
-        </div>
-        <div class="control">
-          <input class="input" type="text" name="postCode" placeholder="Post Code" required>
         </div>
     </div>
     <div class="field">
@@ -60,8 +49,7 @@
               <td>Open</td>
               <td>Close</td>
             </tr>
-            <% const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-            days.forEach(day => { %>
+            <% days.forEach(day => { %>
               <tr>
                 <td><label for=<%= day %>><%- day.charAt(0).toUpperCase() + day.slice(1); %>&nbsp; &nbsp; &nbsp;</label></td>
                 <td><select id=<%= day %> class="input" name="openingHours[<%= day %>][0]">
@@ -200,5 +188,3 @@
   <br/>
   <br/>
 </div>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8-ZXlENPsahFvTjBgbrvg1CuYhipGVic&libraries=places&callback=initAutocomplete" async defer></script>

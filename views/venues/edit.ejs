@@ -1,0 +1,113 @@
+<div class="container">
+  <br/>
+  <h1 class="title">Edit a venue</h1>
+  <form action="/venues/<%= venue._id %>" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="field">
+      <label class="label">Name
+        <div class="control">
+          <input class="input" type="text" name="name" placeholder="Name" value="<%= venue.name %>" required>
+        </div>
+      </label>
+    </div>
+    <div class="field">
+      <label class="label" for="autocomplete">Location</label>
+        <div class="control">
+          <div id="locationField">
+            <input type="hidden" name="map['lat']" value="<%= venue.map['lat'] %>"/>
+            <input type="hidden" name="map['lng']" value="<%= venue.map['lng'] %>"/>
+            <input type="hidden" name="postCode" value="<%= venue.postCode %>"/>
+            <input id="autocomplete" name="location" class="input" placeholder="Enter the venue address" type="text" value="<%= venue.location %>"required />
+          </div>
+        </div>
+    </div>
+    <div class="field">
+      <label class="label" for="phone">Phone
+        <div class="control">
+          <input id="phone" class="input" type="text" name="phone" placeholder="Phone" value="<%= venue.phone %>">
+        </div>
+      </label>
+    </div>
+    <div class="field">
+      <label id="seasons" class="label" for="yearly">Opening Hours</label>
+        <div class="control">
+          <input id="yearly" type="checkbox" name="openingHours[seasons]" value="yearly"<% if(venue.openingHours['seasons'] ==='yearly') { %> checked<% } %>>
+          <label for="yearly">Yearly&nbsp;</label>
+          <input id="spring" type="checkbox" name="openingHours[seasons]" value="spring"<% if(venue.openingHours['seasons'] ==='spring') { %> checked<% } %>>
+          <label for="spring">Spring&nbsp;</label>
+          <input id="summer" type="checkbox" name="openingHours[seasons]" value="summer"<% if(venue.openingHours['seasons'] ==='summer') { %> checked<% } %>>
+          <label for="summer">Summer&nbsp;</label>
+          <input id="autumn" type="checkbox" name="openingHours[seasons]" value="autumn"<% if(venue.openingHours['seasons'] ==='autumn') { %> checked<% } %>>
+          <label for="autumn">Autumn&nbsp;</label>
+          <input id="winter" type="checkbox" name="openingHours[seasons]" value="winter"<% if(venue.openingHours['seasons'] ==='winter') { %> checked<% } %>>
+          <label for="winter">Winter&nbsp;</label>
+        </div>
+        <br>
+        <div class="control">
+          <table>
+            <tr>
+              <td></td>
+              <td>Open</td>
+              <td>Close</td>
+            </tr>
+            <% days.forEach(day => { %>
+              <tr>
+                <td><label for=<%= day %>><%- day.charAt(0).toUpperCase() + day.slice(1); %>&nbsp; &nbsp; &nbsp;</label></td>
+                <td><select id=<%= day %> class="input" name="openingHours[<%= day %>][0]">
+                  <% times.forEach(time => { %>
+                    <option<% if(venue.openingHours[day][0] === time) { %> selected<% } %>><%= time %></option>
+                  <% }) %>
+                </select></td>
+                <td><select id=<%= day %> class="input" name="openingHours[<%= day %>][1]">
+                  <% times.forEach(time => { %>
+                    <option<% if(venue.openingHours[day][1] === time) { %> selected<% } %>><%= time %></option>
+                  <% }) %>
+                </select></td>
+              </tr>
+            <% }) %>
+          </table>
+        </div>
+    </div>
+    <div class="field">
+      <label id="category" for="category" class="label radio">Category</label>
+      <div class="control">
+        <input id="pub" type="radio" name="category" value="pub"<% if(venue.category ==='pub') { %> checked<% } %>>
+        <label for="pub">Pub&nbsp;</label>
+        <input id="cafe" type="radio" name="category" value="cafe"<% if(venue.category ==='cafe') { %> checked<% } %>>
+        <label for="cafe">Cafe&nbsp;</label>
+        <input id="restaurant" type="radio" name="category" value="restaurant"<% if(venue.category ==='restaurant') { %> checked<% } %>>
+        <label for="restaurant">Restaurant&nbsp;</label>
+        <input id="bar" type="radio" name="category" value="bar"<% if(venue.category ==='bar') { %> checked<% } %>>
+        <label for="bar">Bar&nbsp;</label>
+        <input id="gastropub" type="radio" name="category" value="gastropub"<% if(venue.category ==='gastropub') { %> checked<% } %>>
+        <label for="gastropub">Gastropub&nbsp;</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="description">Description</label>
+      <div class="control">
+        <textarea id="description" name="description" class="textarea" placeholder="A little something about this venue.."><%= venue.description %>"</textarea>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="photo">Photo</label>
+      <div class="control">
+        <input id="photo" class="input" type="text" name="image" value="<%= venue.image %>" placeholder="Paste an image link.." required>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="website">Website link</label>
+      <div class="control">
+        <input id="website" class="input" type="text" name="website" value="<%= venue.website %>" placeholder="Paste a link to the venue's website.." required>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <button class="button is-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+  <br/>
+  <br/>
+  <br/>
+</div>

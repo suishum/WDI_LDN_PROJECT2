@@ -3,11 +3,18 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8-ZXlENPsahFvTjBgbrvg1CuYhipGVic&libraries=places">
+    </script>
     <script src="/js/app.js"></script>
     <title>The Dining Dog</title>
   </head>
   <body>
     <%- include ./partials/_header %>
+    <% for (const type in messages) { %>
+      <div class="notification is-<%= type %>"><%= messages[type] %></div>
+    <% } %>
     <%- body %>
     <%- include ./partials/_footer %>
   </body>

@@ -1,1 +1,6 @@
 /* Add class 'is-active' to navbar-burger when is it clicked, probably do this with a javascript listener */
+#map {
+  width: 100%;
+  height: 400px;
+  background-color: grey;
+}

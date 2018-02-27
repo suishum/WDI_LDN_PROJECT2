@@ -1,8 +1,18 @@
 const mongoose = require('mongoose');
 
+const commentSchema = new mongoose.Schema({
+  content: { type: String },
+  user: { type: mongoose.Schema.ObjectId, ref: 'User'},
+  isModerated: { type: Boolean, default: false }
+});
+
+commentSchema.methods.isOwnedBy = function(user) {
+  return this.user && user._id.equals(this.user._id);
+};
+
 const schema = new mongoose.Schema({
   name: { type: String, required: true },
-  openingHours: [{
+  openingHours: {
     seasons: { type: String },
     monday: { type: Array, 'default': [], required: true },
     tuesday: { type: Array, 'default': [], required: true },
@@ -11,20 +21,21 @@ const schema = new mongoose.Schema({
     friday: { type: Array, 'default': [], required: true },
     saturday: { type: Array, 'default': [], required: true },
     sunday: { type: Array, 'default': [], required: true }
-  }],
-  addressLine1: { type: String, required: true },
-  addressLine2: { type: String },
-  city: { type: String, required: true },
-  postCode: { type: String, required: true },
+  },
   phone: { type: String },
-  map: [{
+  location: { type: String, required: true },
+  // addressLine2: { type: String },
+  // city: { type: String, required: true },
+  postCode: { type: String },
+  map: {
     lat: { type: Number },
     lng: { type: Number }
-  }],
+  },
   category: { type: String, required: true },
   description: { type: String },
   image: { type: String },
-  website: { type: String }
+  website: { type: String },
+  comments: [ commentSchema ]
 });
 
 module.exports = mongoose.model('Venue', schema);
