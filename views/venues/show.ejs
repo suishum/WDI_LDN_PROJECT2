@@ -7,7 +7,7 @@
       </figure>
     </div>
     <div class="column">
-      <h1 class="title"><%= venue.name %> (<%= venue.category.charAt(0).toUpperCase() + venue.category.slice(1); %>)</h1>
+      <h1 class="title"><%= venue.name %> (<%= venue.category.capTitle %>)</h1>
       <h2 class="subtitle"><%= venue.location %>, <%= venue.postCode %></h2>
       <p class="subtitle"><%= venue.phone %></p>
       <p class="subtitle">Open <%= venue.openingHours['seasons'] %></p>
@@ -19,7 +19,7 @@
         </tr>
         <% days.forEach(day => { %>
           <tr>
-            <td><%- day.charAt(0).toUpperCase() + day.slice(1); %>&nbsp; &nbsp; &nbsp;</td>
+            <td><%- day.charAt(0).toUpperCase() + day.slice(1); %></td>
             <td><%= venue.openingHours[day][0] %></td>
             <td><%= venue.openingHours[day][1] %></td>
           </tr>
@@ -37,53 +37,57 @@
   </div>
 
   <% if(locals.isAuthenticated) { %>
+    <% if(locals.currentUser.isAdmin) { %>
     <div class="columns">
-      <a class="button is-primary" href="/venues/<%= venue._id %>/edit">Edit</a>
+      <a class="button is-primary" href="/venues/<%= venue._id %>/edit">Edit Venue</a>
       <form method="POST" action="/venues/<%= venue._id %>">
         <input type="hidden" name="_method" value="DELETE">
-        <button class="button is-danger">Delete</button>
+        <button class="button is-danger">Delete Venue</button>
       </form>
     </div>
+    <% } %>
     <hr/>
-  <ul class="comments">
-    <% venue.comments.forEach(comment => { %>
-      <li>
-      <div class="box">
-      <% if (comment.isOwnedBy(locals.currentUser) || locals.currentUser.isAdmin) { %>
-        <form class="delete" method="POST" action="/venues/<%= venue._id %>/comments/<%= comment._id %>">
-          <input type="hidden" name="_method" value="DELETE">
-          <button class="delete">x</button>
-        </form>
-        <% } %> 
-
-        <% if(locals.currentUser.isAdmin && !comment.isModerated) { %>
-                <form class="moderate" method="POST" action="/venues/<%= venue._id %>/comments/<%= comment._id %>/moderate">
-                  <input type="hidden" name="_method" value="PATCH">
-                  <button class="moderate">Moderate</button>
-                </form>
-            <% } %>
-
+    <h2 class="subtitle">Comments</h2>
+    <ul class="comments">
+      <% venue.comments.forEach(comment => { %>
+        <li>
         <% if(comment.isModerated || locals.currentUser.isAdmin || comment.isOwnedBy(locals.currentUser)) { %>
-        <article class="media">
-          <div class="media-left">
-            <figure class="image is-64x64">
-              <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-            </figure>
-          </div>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <%= comment.content %>
-              </p>
-              <% if (comment.user) { %>
-                <strong><%= comment.user.username %><strong>
-              <% } %>
-            </div>
-          </div>
-        </article>
-        <% } %>
+          <div class="box">
+          <% if (comment.isOwnedBy(locals.currentUser) || locals.currentUser.isAdmin) { %>
+            <form class="delete" method="POST" action="/venues/<%= venue._id %>/comments/<%= comment._id %>">
+              <input type="hidden" name="_method" value="DELETE">
+              <button class="button">Delete</button>
+            </form>
+          <% } %>
 
+          <% if(locals.currentUser.isAdmin && !comment.isModerated) { %>
+            <form class="moderate" method="POST" action="/venues/<%= venue._id %>/comments/<%= comment._id %>/moderate">
+              <input type="hidden" name="_method" value="PATCH">
+              <button class="button">Moderate</button>
+            </form>
+          <% } %>
+
+          <% if(comment.isModerated || locals.currentUser.isAdmin || comment.isOwnedBy(locals.currentUser)) { %>
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img src="<%= comment.user.profile %>" alt="<%= comment.user.username %>">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <%= comment.content %>
+                  </p>
+                  <% if (comment.user) { %>
+                    <strong><%= comment.user.username %></strong>
+                  <% } %>
+                </div>
+              </div>
+            </article>
+          <% } %>
         </div>
+        <% } %>
       </li>
     <% }) %>
   </ul>
@@ -92,6 +96,7 @@
         <button class="button is-primary">Submit</button>
   </form>
   <% } %>
+
   <div class="columns">
     <p>Visit this venue's website <strong><a href="<%= venue.website %>">here</a></strong></p>
   </div>

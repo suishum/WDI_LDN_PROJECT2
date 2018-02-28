@@ -1,4 +1,19 @@
 <main class="container">
+  <form>
+    <table>
+      <tr>
+        <td><select name="category" class="input">
+            <option selected disabled>Select a Category</option>
+          <% categories.forEach(category => { %>
+            <option value="<%= category._id %>"<% if(category._id.equals(selectedCategory)) { %> selected <% } %>><%= category.name.charAt(0).toUpperCase() + category.name.slice(1); %></option>
+          <% }) %>
+        </select></td>
+        <td><button class="button is-primary">Go!</button></td>
+      </tr>
+    </table>
+
+  </form>
+
   <div class="columns is-multiline">
 
     <% venues.forEach(venue => { %>

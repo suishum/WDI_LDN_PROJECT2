@@ -11,9 +11,9 @@ commentSchema.methods.isOwnedBy = function(user) {
 };
 
 const schema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, minlength: 2 },
   openingHours: {
-    seasons: { type: String },
+    seasons: { type: String, required: true },
     monday: { type: Array, 'default': [], required: true },
     tuesday: { type: Array, 'default': [], required: true },
     wednesday: { type: Array, 'default': [], required: true },
@@ -22,20 +22,20 @@ const schema = new mongoose.Schema({
     saturday: { type: Array, 'default': [], required: true },
     sunday: { type: Array, 'default': [], required: true }
   },
-  phone: { type: String },
-  location: { type: String, required: true },
+  phone: { type: String, minlength: 2 },
+  location: { type: String, required: true, minlength: 2 },
   // addressLine2: { type: String },
   // city: { type: String, required: true },
-  postCode: { type: String },
+  postCode: { type: String, required: true },
   map: {
-    lat: { type: Number },
-    lng: { type: Number }
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true }
   },
   // category: { type: String, required: true },
   category: { type: mongoose.Schema.ObjectId, ref: 'Category'},
   description: { type: String },
-  image: { type: String },
-  website: { type: String },
+  image: { type: String, pattern: 'https?://.+' },
+  website: { type: String, pattern: 'https?://.+' },
   comments: [ commentSchema ]
 });
 

@@ -1,12 +1,14 @@
 <div class="container">
+  <h1 class="title">Login to your account</h1>
+  <h2 class="subtitle">Required fields are marked *</h2>
   <form method="POST" action="/login">
     <div class="field">
-      <label for="email">Email</label>
-      <input class="input" type="text" name="email" id="email">
+      <label for="email">Email *</label>
+      <input class="input" type="text" name="email" placeholder="Email" id="email">
     </div>
     <div class="field">
-      <label for="password">Password</label>
-      <input class="input" type="password" name="password" id="password">
+      <label for="password">Password *</label>
+      <input class="input" type="password" name="password" placeholder="Password" id="password">
     </div>
     <button class="button">Login</button>
   </form>

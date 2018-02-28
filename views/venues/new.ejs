@@ -1,16 +1,16 @@
 <div class="container">
-  <br/>
   <h1 class="title">Add a venue</h1>
+  <h2 class="subtitle">Required fields are marked *</h2>
   <form action="/venues" method="POST">
     <div class="field">
-      <label class="label">Name
+      <label class="label">Name *
         <div class="control">
-          <input class="input" type="text" name="name" placeholder="Name" required />
+          <input class="input" type="text" name="name" placeholder="Venue name" required/>
         </div>
       </label>
     </div>
     <div class="field">
-      <label class="label" for="autocomplete">Location</label>
+      <label class="label" for="autocomplete">Location *</label>
         <div class="control">
           <div id="locationField">
             <input type="hidden" name="map[lat]"/>
@@ -28,7 +28,7 @@
       </label>
     </div>
     <div class="field">
-      <label class="label" for="yearly">Opening Hours</label>
+      <label class="label" for="yearly">Opening Hours *</label>
         <div class="control">
           <input id="yearly" type="checkbox" name="openingHours[seasons]" value="yearly">
           <label for="yearly">Yearly&nbsp;</label>
@@ -51,9 +51,9 @@
             </tr>
             <% days.forEach(day => { %>
               <tr>
-                <td><label for=<%= day %>><%- day.charAt(0).toUpperCase() + day.slice(1); %>&nbsp; &nbsp; &nbsp;</label></td>
+                <td><label for=<%= day %>><%- day.charAt(0).toUpperCase() + day.slice(1); %></label></td>
                 <td><select id=<%= day %> class="input" name="openingHours[<%= day %>][0]">
-                  <option value="closed">CLOSED</option>
+                  <option value="CLOSED">CLOSED</option>
                   <option value="07:00AM">07:00AM</option>
                   <option value="07:30AM">07:30AM</option>
                   <option value="08:00AM">08:00AM</option>
@@ -97,7 +97,7 @@
                   <option value="03:00AM">03:00AM</option>
                 </select></td>
                 <td><select id=<%= day %> class="input" name="openingHours[<%= day %>][1]">
-                  <option value="closed">CLOSED</option>
+                  <option value="CLOSED">CLOSED</option>
                   <option value="07:00AM">07:00AM</option>
                   <option value="07:30AM">07:30AM</option>
                   <option value="08:00AM">08:00AM</option>
@@ -146,18 +146,12 @@
         </div>
     </div>
     <div class="field">
-      <label for="category" class="label radio">Category</label>
+      <label for="category" class="label radio">Category *</label>
       <div class="control">
-        <input id="pub" type="radio" name="category" value="pub">
-        <label for="pub">Pub&nbsp;</label>
-        <input id="cafe" type="radio" name="category" value="cafe">
-        <label for="cafe">Cafe&nbsp;</label>
-        <input id="restaurant" type="radio" name="category" value="restaurant">
-        <label for="restaurant">Restaurant&nbsp;</label>
-        <input id="bar" type="radio" name="category" value="bar">
-        <label for="bar">Bar&nbsp;</label>
-        <input id="gastropub" type="radio" name="category" value="gastropub">
-        <label for="gastropub">Gastropub&nbsp;</label>
+        <% categories.forEach(category => { %>
+          <input id="<%= category.name %>" type="radio" name="category" value="<%= category._id %>">
+          <label for="<%= category.name %>"><%= category.name.charAt(0).toUpperCase() + category.name.slice(1); %>&nbsp;</label>
+        <% }) %>
       </div>
     </div>
     <div class="field">
@@ -169,13 +163,13 @@
     <div class="field">
       <label class="label" for="photo">Photo</label>
       <div class="control">
-        <input id="photo" class="input" type="text" name="image" placeholder="Paste an image link.." required>
+        <input id="photo" class="input" type="text" name="image" placeholder="Paste an image link..">
       </div>
     </div>
     <div class="field">
       <label class="label" for="website">Website link</label>
       <div class="control">
-        <input id="website" class="input" type="text" name="website" placeholder="Paste a link to the venue's website.." required>
+        <input id="website" class="input" type="text" name="website" placeholder="Paste a link to the venue's website..">
       </div>
     </div>
     <div class="field">

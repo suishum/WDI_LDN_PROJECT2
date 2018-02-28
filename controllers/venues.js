@@ -1,4 +1,7 @@
 const Venue = require('../models/venue');
+const Category = require('../models/category');
+const Promise = require('bluebird');
+
 const days = [
   'monday',
   'tuesday',
@@ -55,13 +58,25 @@ const times = [
 ];
 
 function indexRoute(req, res) {
-  Venue.find()
-    .then(venues => res.render('venues/index', { venues }));
+  Promise.props({
+    categories: Category.find().exec(),
+    venues: Venue.find(req.query).populate('category').exec()
+  })
+    .then(data => {
+      res.render('venues/index', {
+        venues: data.venues,
+        categories: data.categories,
+        selectedCategory: req.query.category
+      });
+    });
+  // Venue.find()
+  //   .then(venues => res.render('venues/index', { venues }));
 }
 
 // newRoute - get - /venues/new
 function newRoute(req, res) {
-  res.render('venues/new', { days });
+  Category.find()
+    .then(categories => res.render('venues/new', { days, categories }));
 }
 
 // createRoute - post - /venues
@@ -74,7 +89,7 @@ function createRoute(req, res, next) {
 
 function showRoute(req, res, next) {
   Venue.findById(req.params.id)
-    .populate('comments.user')
+    .populate('category comments.user')
     .then(venue => {
       if(!venue) return res.render('pages/404');
       res.render('venues/show', { venue, days, times });
@@ -128,7 +143,7 @@ function commentsDeleteRoute(req, res, next) {
 
 function commentsModerate(req, res, next) {
   if(!req.currentUser.isAdmin){
-    req.flash('danger', 'You do not have permission to moderate');
+    req.flash('danger', 'You do not have permission to moderate!');
     return res.redirect(`/venues/${req.params.id}`);
   }
 
