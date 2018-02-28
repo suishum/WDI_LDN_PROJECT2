@@ -2,7 +2,7 @@
 // Google Autocomplete Form Stuff
 // ==============================
 /* global google */
-let placeSearch = null;
+// let placeSearch = null;
 let autocomplete = null;
 let geocoder = null;
 
@@ -63,5 +63,4 @@ function initMap() {
 window.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('map')) initMap();
   if (document.getElementById('autocomplete')) initAutocomplete();
-  // initAutocomplete();
 });

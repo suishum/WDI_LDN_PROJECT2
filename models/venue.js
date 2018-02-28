@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
   content: { type: String },
-  user: { type: mongoose.Schema.ObjectId, ref: 'User'},
+  user: { type: mongoose.Schema.ObjectId, ref: 'User'}, // foreign key from 'User' schema
   isModerated: { type: Boolean, default: false }
 });
 
@@ -31,7 +31,8 @@ const schema = new mongoose.Schema({
     lat: { type: Number },
     lng: { type: Number }
   },
-  category: { type: String, required: true },
+  // category: { type: String, required: true },
+  category: { type: mongoose.Schema.ObjectId, ref: 'Category'},
   description: { type: String },
   image: { type: String },
   website: { type: String },
