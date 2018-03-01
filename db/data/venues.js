@@ -25,7 +25,7 @@ module.exports = [{
   name: 'Franks Cafe',
   openingHours: {
     seasons: 'summer',
-    monday: ['closed', 'closed'],
+    monday: ['CLOSED', 'CLOSED'],
     tuesday: ['05:00PM', '11:00PM'],
     wednesday: ['05:00PM', '11:00PM'],
     thursday: ['05:00PM', '11:00PM'],

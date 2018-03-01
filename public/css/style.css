@@ -3,39 +3,226 @@
   font-family: 'Josefin Sans', sans-serif;
 }
 
+body {
+  min-height: 100vh;
+  position: relative;
+}
+
 html {
-  background-color: #7F7F90;
+  background-color: #e4e4e4;
 }
 
 .navbar {
-  background-color:#504E5B;
-  color: white;
+  background-color: #504E5B;
+  color: #e4e4e4;
   border-radius: 0 0 20px 20px;
 }
 
+.navbar a {
+  transition: 0.5s;
+  border-radius: 0 0 20px 20px;
+}
+
+.navbar a:hover:not(.my-site) {
+  transition: 0.5s;
+  background-color: #e4e4e4;
+  color: #105685;
+  border-radius: 0 0 20px 20px;
+}
+
+.my-site:hover {
+  transition: 0.5s;
+  color: #105685;
+}
+
 .navbar-item {
-  color: white;
+  color: #e4e4e4;
 }
 
 .hero {
-  /* height: calc(100vh - 100px); */
-  width: calc(100vw - 50%);
-  margin: 0 auto;
+  background-image: url("/images/dining-dogs.jpg");
+  margin: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  height: 100vh;
 }
 
-/* .opacity-layer {
+.opacity-layer {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+.hero-body h1 {
+  color: white;
+  font-size: 5em;
+  font-weight: 300;
+  padding-bottom: 8px;
+  line-height: 110%;
+}
+h2.title, h3.subtitle {
+  color: white;
+}
+h3.subtitle {
+  font-size: 1.75em;
+}
+.hero-body .container h1 {
+  text-shadow: 3px 4px 5px rgba(0, 0,0, 0.5);
+}
+.hero-body .container h2, .hero-body .container h3 {
+  text-shadow: 2px 2px 3px rgba(0, 0,0, 0.5);
+}
+.hero-body .container {
+  position: absolute;
+  top: 12%;
+  left: 10%;
+}
+
+/* div.show-page {
+  margin: 0 0 100px 0;
 } */
+
+main.container {
+  margin: 0 auto;
+  padding: 100px 0 0 0;
+}
+
+div.container {
+  margin: 0 auto;
+  padding: 100px 0 0 0;
+}
+
+div.spacer {
+  height: 100px;
+}
+
+/* .all-venues {
+  display: inline-block;
+  width: calc(100% - 210px);
+} */
+
+#filter {
+  margin-bottom: 20px;
+  /* display: inline-block;
+  width: 210px; */
+}
+#filter .input:hover {
+  cursor: pointer;
+}
+
+#filter .input {
+  /* padding-right: 30px; */
+}
+
+.input {
+  font-family: 'Josefin Sans', sans-serif;
+}
 
 #map {
   width: 100%;
-  height: 400px;
-  background-color: grey;
+  height: 100%;
+  /* background-color: grey; */
+}
+
+.notification {
+  margin-top: 50px;
+  border-radius: 20px;
+  z-index: 2;
+  float: left;
+  width: 100%;
+}
+
+.card-content h3 {
+  font-size: 1.5em;
+  padding-bottom: 6px;
+}
+
+.card {
+  transition: 0.5s;
+}
+
+.card:hover {
+  -webkit-box-shadow: 2px 11px 25px -1px rgba(0,0,0,0.31);
+-moz-box-shadow: 2px 11px 25px -1px rgba(0,0,0,0.31);
+box-shadow: 2px 11px 25px -1px rgba(0,0,0,0.31);
+transition: 0.5s;
+}
+
+.card:hover h3.title {
+  color: #105685;
+  transition: 0.3s;
+}
+
+.commentForm {
+  padding: 0 0 50px 0;
+}
+
+i {
+  color: #105685;
+}
+
+table {
+  background-color: #105685;
+  border-radius: 20px;
+  color: white;
+}
+
+td {
+  padding: 3px 14px;
+}
+
+td strong {
+  color: white;
+  font-size: 22px;
+}
+
+strong a {
+  color: #105685;
+}
+
+a.website-link {
+  color: #105685;
+}
+
+strong a:hover {
+  color: #5E93B2;
+}
+
+a.website-link:hover {
+  color: #5E93B2;
+}
+
+/* .align-mid {
+  text-align: center;
+} */
+
+.button.is-primary {
+  transition: 0.4s;
+  background-color: #105685;
+  border-color: transparent;
+  color: #fff;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.button.is-primary:hover {
+  transition: 0.4s;
+  background-color: #5E93B2;
+}
+
+.button.is-danger {
+  transition: 0.4s;
+  background-color: #A06E8F;
+  border-color: transparent;
+  color: #fff;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.button.is-danger:hover {
+  transition: 0.4s;
+  background-color: #EB7A96;
 }
 
 nav.footer {
@@ -43,8 +230,22 @@ nav.footer {
   color: white;
   padding: 0px;
   border-radius: 20px 20px 0 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.footer div.container {
+  margin: 0 auto;
+  padding-top: 20px;
 }
 
 .footer a {
   color: white;
+}
+
+@media (max-width: 320px) {
+  .hero {
+    background-image: none;
+  }
 }

@@ -1,21 +1,22 @@
 <main class="container">
-  <form>
-    <table>
-      <tr>
-        <td><select name="category" class="input">
-            <option selected disabled>Select a Category</option>
-          <% categories.forEach(category => { %>
-            <option value="<%= category._id %>"<% if(category._id.equals(selectedCategory)) { %> selected <% } %>><%= category.name.charAt(0).toUpperCase() + category.name.slice(1); %></option>
-          <% }) %>
-        </select></td>
-        <td><button class="button is-primary">Go!</button></td>
-      </tr>
-    </table>
-
-  </form>
+  <div class="mastHead">
+  <h1 class="title all-venues">All venues</h1>
+    <form id="filter">
+      <table>
+        <tr>
+          <td><select name="category" class="input">
+            <option selected disabled>Select a category</option>
+            <% categories.forEach(category => { %>
+              <option value="<%= category._id %>"<% if(category._id.equals(selectedCategory)) { %> selected <% } %>><%= category.name.charAt(0).toUpperCase() + category.name.slice(1); %></option>
+              <% }) %>
+            </select></td>
+            <td><button class="button is-primary">Go!</button></td>
+          </tr>
+        </table>
+      </form>
+  </div>
 
   <div class="columns is-multiline">
-
     <% venues.forEach(venue => { %>
     <div class="column is-one-quarter-desktop is-half-tablet">
       <a href="/venues/<%= venue._id %>">

@@ -14,9 +14,11 @@ const userAuth = require('./lib/userAuth');
 // Create the app by invoking the Express module.
 const app = express();
 // Set port variable
-const PORT = 8000;
+// heroku's port number || our port number
+const PORT = process.env.PORT || 8000;
 // Connect to DB
-mongoose.connect('mongodb://localhost/venues-database');
+// heroku's DB || our DB
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/venues-database');
 
 // Configure Express to use EJS
 app.set('view engine', 'ejs');

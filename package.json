@@ -5,6 +5,9 @@
   "repository": "git@github.com:suishum/WDI_LDN_PROJECT2.git",
   "author": "Sui <suii_shum@hotmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node index"
+  },
   "dependencies": {
     "bcrypt": "^1.0.3",
     "bluebird": "^3.5.1",

@@ -1,5 +1,11 @@
 <div class="container">
-  <br/>
+  <div class="columns">
+    <div class="column">
+      <h1 class="title"><%= venue.name %> (<%= venue.category.capTitle %>)</h1>
+      <h2 class="subtitle"><i class="fa fa-map-marker">&nbsp;</i><%= venue.location %>, <%= venue.postCode %>. &nbsp;&nbsp;&nbsp;<i class="fa fa-phone"></i>&nbsp;<%= venue.phone %>. &nbsp;&nbsp;&nbsp;<i class="fa fa-home"></i>&nbsp;Open <%= venue.openingHours['seasons'] %>. &nbsp;&nbsp;&nbsp;<i class="fa fa-globe"></i>&nbsp;<a class="website-link" href="<%= venue.website %>">Website</a>. </h2>
+    </div>
+  </div>
+
   <div class="columns">
     <div class="column">
       <figure class="image">
@@ -7,33 +13,34 @@
       </figure>
     </div>
     <div class="column">
-      <h1 class="title"><%= venue.name %> (<%= venue.category.capTitle %>)</h1>
-      <h2 class="subtitle"><%= venue.location %>, <%= venue.postCode %></h2>
-      <p class="subtitle"><%= venue.phone %></p>
-      <p class="subtitle">Open <%= venue.openingHours['seasons'] %></p>
+      <%# set attributes as 'data-whatever' to access in javascript by document.getElement().dataset.whatever
+      here we've used JSON.stringify to turn the object into a string (which we will then JSON.parse in JavaScript) %>
+      <div id="map" data-location="<%= JSON.stringify(venue.map) %>"></div>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column is-9">
+      <p><%- venue.description %></p>
+      <br/>
+      <p>Visit this venue's website <strong><a href="<%= venue.website %>">here</a></strong>.</p>
+    </div>
+    <div class="column is-3">
       <table>
         <tr>
           <td></td>
-          <td>Open</td>
-          <td>Close</td>
+          <td><strong>Open</strong></td>
+          <td><strong>Close</strong></td>
         </tr>
         <% days.forEach(day => { %>
           <tr>
-            <td><%- day.charAt(0).toUpperCase() + day.slice(1); %></td>
-            <td><%= venue.openingHours[day][0] %></td>
-            <td><%= venue.openingHours[day][1] %></td>
+          <td><%- day.charAt(0).toUpperCase() + day.slice(1); %></td>
+          <td><%= venue.openingHours[day][0] %></td>
+          <td><%= venue.openingHours[day][1] %></td>
           </tr>
-        <% }) %>
-      </table>
+          <% }) %>
+        </table>
     </div>
-  </div>
-  <div class="columns">
-    <p><%- venue.description %></p>
-  </div>
-  <div class="columns">
-    <%# set attributes as 'data-whatever' to access in javascript by document.getElement().dataset.whatever
-    here we've used JSON.stringify to turn the object into a string (which we will then JSON.parse in JavaScript) %>
-    <div id="map" data-location="<%= JSON.stringify(venue.map) %>"></div>
   </div>
 
   <% if(locals.isAuthenticated) { %>
@@ -54,16 +61,16 @@
         <% if(comment.isModerated || locals.currentUser.isAdmin || comment.isOwnedBy(locals.currentUser)) { %>
           <div class="box">
           <% if (comment.isOwnedBy(locals.currentUser) || locals.currentUser.isAdmin) { %>
-            <form class="delete" method="POST" action="/venues/<%= venue._id %>/comments/<%= comment._id %>">
+            <form method="POST" action="/venues/<%= venue._id %>/comments/<%= comment._id %>">
               <input type="hidden" name="_method" value="DELETE">
-              <button class="button">Delete</button>
+              <button class="button is-danger">Delete</button>
             </form>
           <% } %>
 
           <% if(locals.currentUser.isAdmin && !comment.isModerated) { %>
             <form class="moderate" method="POST" action="/venues/<%= venue._id %>/comments/<%= comment._id %>/moderate">
               <input type="hidden" name="_method" value="PATCH">
-              <button class="button">Moderate</button>
+              <button class="button is-primary">Moderate</button>
             </form>
           <% } %>
 
@@ -91,13 +98,12 @@
       </li>
     <% }) %>
   </ul>
-  <form method="POST" action="/venues/<%= venue._id %>/comments">
+  <form class="commentForm" method="POST" action="/venues/<%= venue._id %>/comments">
         <textarea class="textarea" name="content"></textarea>
+        <br/>
         <button class="button is-primary">Submit</button>
   </form>
   <% } %>
 
-  <div class="columns">
-    <p>Visit this venue's website <strong><a href="<%= venue.website %>">here</a></strong></p>
-  </div>
+  <div class="spacer"></div>
 </div>
