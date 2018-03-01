@@ -164,13 +164,13 @@ i {
   color: #105685;
 }
 
-table {
+table.opening-times {
   background-color: #105685;
   border-radius: 20px;
   color: white;
 }
 
-td {
+td:not(#filter) {
   padding: 3px 14px;
 }
 
